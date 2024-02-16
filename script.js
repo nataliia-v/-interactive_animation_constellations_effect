@@ -3,10 +3,13 @@ const canvas = document.getElementById('canvas1');
 const ctx = canvas.getContext('2d'); // create an instance CanvasRenderingContext2D 
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
-ctx.fillStyle = 'yellow';
 
 console.log(ctx);
-
+const gradient = ctx.createLinearGradient(0,0,canvas.width, canvas.height)
+gradient.addColorStop(0, 'white');
+gradient.addColorStop(0.5, 'magenta');
+gradient.addColorStop(1, 'blue');
+ctx.fillStyle = gradient;
 
 
 class Particle {
@@ -21,9 +24,6 @@ class Particle {
   }
 
   draw(context) {
-    // I want wach particle to have a different color. I have to define "fillStyle" and change this setting every time we are about to draw anew particle.
-    // use hsl() color declaration for multiple colors
-    context.fillStyle = 'hsl(' + this.x * 0.5 +', 100%, 50%)'; //  360 degree in the color wheel, try to use 'hsl(' + this.x * 0.5 +', 100%, 50%)' or 'hsl(' + Math.random() * 360 +', 100%, 50%)'
     context.beginPath();
     // to draw a circle on canvas we start by calling begin path to tell JS to draw a new shape built in .arc() method
     context.arc(this.x, this.y, this.radius, 0, Math.PI * 2 ); // arc() just defines a path,doesn't draw anything. 0 =  start angle, angle of Math.PI - full circular arc
