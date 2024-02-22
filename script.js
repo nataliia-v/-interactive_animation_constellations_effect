@@ -38,6 +38,7 @@ class Particle {
       const dx = this.x - this.effect.mouse.x;// calculete the distasnce between particle and mouse (dx and dy)
       const dy = this.y - this.effect.mouse.y;
       const distance = Math.hypot(dx, dy);
+      const force = this.effect.mouse.radius / destance;
       if(distance < this.effect.mouse.radius){ // push particle from mouse
         const angle = Math.atan2(dy, dx); // gives countreclockwise angle in radians, between the positive x-axis and a line projected from point 0,0 towards specificx and y coordinates (target points)
         this.x += Math.cos(angle);
@@ -92,6 +93,26 @@ class Effect {
 
     } );
 
+    window.addEventListener('touchmove', e => {
+      if(this.mouse.pressed) {
+        this.mouse.x = e.x;
+        this.mouse.y = e.y;
+      }
+
+    } );
+
+    window.addEventListener('mousedown', e => {
+      this.mouse.pressed = true;
+      this.mouse.x = e.x;
+      this.mouse.y = e.y;
+    } )
+
+    window.addEventListener('touchstart', e => {
+      this.mouse.pressed = true;
+      this.mouse.x = e.x;
+      this.mouse.y = e.y;
+    } )
+
     window.addEventListener('mousedown', e => {
       this.mouse.pressed = true;
       this.mouse.x = e.x;
@@ -99,6 +120,10 @@ class Effect {
     } )
 
     window.addEventListener('mouseup', e => {
+      this.mouse.pressed = false;
+    } )
+
+    window.addEventListener('touchend', e => {
       this.mouse.pressed = false;
     } )
 
