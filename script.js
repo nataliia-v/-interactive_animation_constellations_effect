@@ -38,7 +38,7 @@ class Particle {
       const dx = this.x - this.effect.mouse.x;// calculete the distasnce between particle and mouse (dx and dy)
       const dy = this.y - this.effect.mouse.y;
       const distance = Math.hypot(dx, dy);
-      const force = this.effect.mouse.radius / destance;
+      const force = this.effect.mouse.radius / distance;
       if(distance < this.effect.mouse.radius){ // push particle from mouse
         const angle = Math.atan2(dy, dx); // gives countreclockwise angle in radians, between the positive x-axis and a line projected from point 0,0 towards specificx and y coordinates (target points)
         this.x += Math.cos(angle);
@@ -46,6 +46,7 @@ class Particle {
       }
     };
 
+    // motion particles (in if() bounce logic):
     this.x += this.vx;
     if (this.x > this.effect.width - this.radius || this.x < this.radius) this.vx *= -1;
 
